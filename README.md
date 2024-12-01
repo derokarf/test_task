@@ -14,18 +14,18 @@ Upload the result to GitHub.
 Done.
 
 How to run:
-    1.a If you have "make":
-        - make init
-        - make up
-        - go to point 2
-    1.b If you don't have "make":
-        - docker-compose run rate-nodejs sh -c "npm install"
-        - docker-compose up -d rate-postgres
-	    - docker-compose exec rate-postgrespsql -U postgres -d postgres -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
-	    - docker-compose up -d rate-nodejs
-	    - docker-compose exec rate-nodejs sh -c "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d ormconfig.ts migration:run -t each"
-        - docker-compose up --remove-orphans
-        - go to point 2
-    
+    1.
+    	a) If you have "make":
+	        - make init
+	        - make up
+	        - go to point 2
+    	b) If you don't have "make":
+	        - docker-compose run rate-nodejs sh -c "npm install"
+	        - docker-compose up -d rate-postgres
+	    	- docker-compose exec rate-postgrespsql -U postgres -d postgres -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";'
+	    	- docker-compose up -d rate-nodejs
+	    	- docker-compose exec rate-nodejs sh -c "npx ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js -d ormconfig.ts migration:run -t each"
+        	- docker-compose up --remove-orphans
+        	- go to point 2
     2. Wait defaul schedule updating period (10 sec)
     3. Send GET request to 127.0.0.1:50000/rates/last-rates
