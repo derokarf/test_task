@@ -1,0 +1,42 @@
+services:
+    rate-nodejs:
+        container_name: rate-nodejs
+        build: docker/nodejs
+        env_file:
+            - .env
+        volumes:
+            - ./src:/app
+        working_dir: /app
+        command: npx nodemon --config nodemon.json
+        ports:
+            - ${APP_PORT}:${APP_PORT}
+        networks:
+            - test-network
+        depends_on:
+            - rate-postgres
+            - rate-redis
+
+    rate-postgres:
+        container_name: rate-postgres
+        image: postgres:15.6
+        env_file:
+            - .env
+        environment:
+            PGDATA: /var/lib/postgresql/data
+            POSTGRES_USER: ${PG_SUPERUSER_NAME}
+            POSTGRES_PASSWORD: ${PG_SUPERUSER_PASSWORD}
+            POSTGRES_HOST_AUTH_METHOD: trust
+        volumes:
+            - ./var/postgres/data:/var/lib/postgresql/data:delegated
+        networks:
+            - test-network
+
+    rate-redis:
+        container_name: rate-redis
+        image: redis:alpine
+        networks:
+            - test-network
+
+networks:
+    test-network:
+        external: true

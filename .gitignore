@@ -1,0 +1,15 @@
+/src/dist
+/src/node_modules
+.npmrc
+
+logs
+*.log
+npm-debug.log*
+
+
+/.vscode
+.vscode
+
+var
+
+
